@@ -33,14 +33,14 @@ function MobileNavbar() {
 
     return(
         <div className="block border-separate bg-background md:hidden">
-            <nav className="container flex items-center justify-between px-8">
+            <nav className="container mx-auto flex items-center justify-between px-8">
                 <Sheet open={isOpen} onOpenChange={setIsOpen}>
                     <SheetTrigger asChild>
                         <Button variant="ghost" size="icon">
                             <Menu />
                         </Button>
                     </SheetTrigger>
-                    <SheetContent className="w-[400px] sm:w-[540px]" side="left">
+                    <SheetContent className="w-[85vw] max-w-sm" side="left">
                         <Logo />
                         <div className="flex flex-col gap-1 pt-4">
                             {items.map((item) => (
@@ -71,7 +71,8 @@ function MobileNavbar() {
 
 function DesktopNavbar() {
     return (
-      <div className="hidden border-separate border-b bg-background md:block">
+      <div className="container mx-auto justify-between hidden border-separate border-b bg-background md:block overflow-x-hidden">
+        {/* container mx-auto flex flex-wrap items-center justify-between gap-6 py-8 */}
         <nav className="container flex items-center justify-between px-8">
           <div className="flex h-[80px] min-h-[60px] items-center gap-x-4">
             <Logo />
@@ -100,7 +101,7 @@ function DesktopNavbar() {
     const isActive = pathname === link;
   
     return (
-      <div className="relative flex items-center">
+      <div className="relative flex items-center justify-center"> 
         <Link
           href={link}
           className={cn(

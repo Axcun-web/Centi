@@ -7,6 +7,7 @@ import { differenceInDays, startOfMonth } from "date-fns";
 import React, { useState } from "react";
 import { toast } from "sonner";
 import StatsCards from "./StatsCards";
+import CategoriesStats from "./CategoriesStats";
 
 function Overview({ userSettings }: { userSettings: UserSettings }) {
   const [dateRange, setDateRange] = useState<{ from: Date; to: Date }>({
@@ -16,35 +17,45 @@ function Overview({ userSettings }: { userSettings: UserSettings }) {
 
   return ( 
     <>
-        <div className="container flex flex-wrap items-end justify-between gap-2 py-6">
-        <h2 className="text-3xl font-bold">Overview</h2>
-        <div className="flex items-center gap-3">
-        <DateRangePicker 
-            initialDateFrom={dateRange.from}
-            initialDateTo={dateRange.to}
-            showCompare={false}
-            onUpdate={(values) => {
-                const { from, to } = values.range;
+        <div className="container mx-auto flex flex-wrap items-end justify-between gap-2 py-6 ">
+            <h2 className="text-3xl font-bold">Overview</h2>
+            <div className="flex items-center gap-3">
+                <DateRangePicker 
+                    initialDateFrom={dateRange.from}
+                    initialDateTo={dateRange.to}
+                    showCompare={false}
+                    onUpdate={(values) => {
+                        const { from, to } = values.range;
 
-                if(!from || !to) return;
-                if(differenceInDays(to,from) > MAX_DATE_RANGE_DAYS) {
-                    toast.error(
-                        `The selected date range is too long. 
-                        Please select a range of ${MAX_DATE_RANGE_DAYS} days or less.`
-                    );
-                    return;
-                }
-                
-                setDateRange({from,to})
-            }}
-        />
+                        if(!from || !to) return;
+                        if(differenceInDays(to,from) > MAX_DATE_RANGE_DAYS) {
+                            toast.error(
+                                `The selected date range is too long. 
+                                Please select a range of ${MAX_DATE_RANGE_DAYS} days or less.`
+                            );
+                            return;
+                        }
+                        
+                        setDateRange({from,to})
+                    }}
+                />
+            </div>
         </div>
-    </div>
-    <StatsCards
-        userSettings= {userSettings}
-        from = {dateRange.from} 
-        to = {dateRange.to}
-        />
+        <div className="container mx-auto flex w-full flex-col gap-2">
+            <StatsCards
+                userSettings= {userSettings}
+                from = {dateRange.from} 
+                to = {dateRange.to}
+            />
+            <CategoriesStats 
+                userSettings= {userSettings}
+                from = {dateRange.from} 
+                to = {dateRange.to}
+            />
+        </div>
+
+        
+        
   </>
   );
 }
