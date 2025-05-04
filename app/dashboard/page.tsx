@@ -26,9 +26,9 @@ async function page() {
     redirect("/wizard");
   }
 
-  return <div className="h-full bg-background">
+  return <div className="mx-auto h-full bg-background overflow-x-hidden">
     <div className="border-b bg-card">
-      <div className="container flex flex-wrap items-center justify-between gap-6 py-8">
+      <div className="container mx-auto flex flex-wrap items-center justify-between gap-6 py-8">
         <p className="text-3xl font-bold">
           Hello, {user.firstName}!
         </p>
